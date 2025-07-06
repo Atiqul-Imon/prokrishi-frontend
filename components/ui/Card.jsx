@@ -10,13 +10,14 @@ const Card = React.forwardRef(({
   onClick,
   ...props
 }, ref) => {
-  const baseClasses = "bg-white rounded-xl border transition-all duration-200";
+  const baseClasses = "bg-white rounded-xl border transition-all duration-300";
   
   const variants = {
-    default: "border-gray-200 shadow-sm",
-    elevated: "border-gray-200 shadow-md",
-    outlined: "border-gray-300 shadow-none",
+    default: "border-gray-100 shadow-sm hover:shadow-lg",
+    elevated: "border-gray-100 shadow-lg hover:shadow-xl",
+    outlined: "border-gray-200 shadow-none hover:border-gray-300",
     ghost: "border-transparent shadow-none bg-transparent",
+    primary: "border-green-100 shadow-sm hover:shadow-lg hover:border-green-200",
   };
   
   const paddings = {
@@ -27,7 +28,7 @@ const Card = React.forwardRef(({
     xl: "p-10",
   };
   
-  const hoverClasses = hover ? "hover:shadow-lg hover:border-gray-300 hover:-translate-y-1" : "";
+  const hoverClasses = hover ? "hover:-translate-y-1" : "";
   
   const classes = `${baseClasses} ${variants[variant]} ${paddings[padding]} ${hoverClasses} ${className}`;
   
@@ -48,7 +49,7 @@ const Card = React.forwardRef(({
 });
 
 const CardHeader = ({ children, className = "", ...props }) => (
-  <div className={`pb-4 ${className}`} {...props}>
+  <div className={`pb-6 ${className}`} {...props}>
     {children}
   </div>
 );
@@ -60,7 +61,7 @@ const CardContent = ({ children, className = "", ...props }) => (
 );
 
 const CardFooter = ({ children, className = "", ...props }) => (
-  <div className={`pt-4 border-t border-gray-100 ${className}`} {...props}>
+  <div className={`pt-6 border-t border-gray-100 ${className}`} {...props}>
     {children}
   </div>
 );

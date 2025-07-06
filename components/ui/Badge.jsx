@@ -8,26 +8,27 @@ const Badge = React.forwardRef(({
   className = "",
   ...props
 }, ref) => {
-  const baseClasses = "inline-flex items-center font-medium";
+  const baseClasses = "inline-flex items-center font-medium transition-colors duration-200";
   
   const variants = {
-    primary: "bg-primary-100 text-primary-800",
-    secondary: "bg-secondary-100 text-secondary-800",
-    accent: "bg-accent-100 text-accent-800",
-    success: "bg-success-100 text-success-800",
-    warning: "bg-warning-100 text-warning-800",
-    error: "bg-error-100 text-error-800",
-    gray: "bg-gray-100 text-gray-800",
-    outline: "border border-primary-200 text-primary-700 bg-transparent",
+    primary: "bg-green-100 text-green-800 border border-green-200",
+    secondary: "bg-orange-100 text-orange-800 border border-orange-200",
+    accent: "bg-purple-100 text-purple-800 border border-purple-200",
+    success: "bg-green-100 text-green-800 border border-green-200",
+    warning: "bg-yellow-100 text-yellow-800 border border-yellow-200",
+    error: "bg-red-100 text-red-800 border border-red-200",
+    gray: "bg-gray-100 text-gray-800 border border-gray-200",
+    outline: "border border-green-200 text-green-700 bg-transparent",
+    dark: "bg-gray-800 text-white border border-gray-700",
   };
   
   const sizes = {
-    sm: "px-2 py-0.5 text-xs",
-    md: "px-2.5 py-0.5 text-sm",
-    lg: "px-3 py-1 text-sm",
+    sm: "px-2.5 py-1 text-xs",
+    md: "px-3 py-1.5 text-sm",
+    lg: "px-4 py-2 text-sm",
   };
   
-  const roundedClass = rounded ? "rounded-full" : "rounded-md";
+  const roundedClass = rounded ? "rounded-full" : "rounded-lg";
   
   const classes = `${baseClasses} ${variants[variant]} ${sizes[size]} ${roundedClass} ${className}`;
   

@@ -9,14 +9,15 @@ const CategoryCard = ({ category }) => (
     href={`/products/category/${category.slug}`}
     className="group block text-center"
   >
-    <div className="relative w-32 h-32 mx-auto mb-4 overflow-hidden rounded-full border-4 border-transparent group-hover:border-primary transition-all duration-300 transform group-hover:scale-105">
+    <div className="relative w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-3 overflow-hidden rounded-2xl border-2 border-gray-100 group-hover:border-green-300 transition-all duration-300 group-hover:scale-110 shadow-sm hover:shadow-md bg-white">
       <img
         src={category.image || "/placeholder.svg"}
         alt={category.name}
-        className="w-full h-full object-cover"
+        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
       />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
     </div>
-    <h3 className="text-lg font-semibold text-gray-800 group-hover:text-primary transition-colors duration-300 capitalize">
+    <h3 className="text-xs sm:text-sm font-medium text-gray-700 group-hover:text-green-600 transition-colors duration-300 capitalize truncate leading-tight">
       {category.name}
     </h3>
   </Link>
@@ -45,14 +46,25 @@ const FeaturedCategories = () => {
 
   if (loading) {
     return (
-      <div className="text-center py-12">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
-      </div>
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600 mx-auto"></div>
+            <p className="mt-2 text-sm text-gray-500">Loading categories...</p>
+          </div>
+        </div>
+      </section>
     );
   }
 
   if (error) {
-    return <div className="text-center py-12 text-red-500">{error}</div>;
+    return (
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center text-red-500">{error}</div>
+        </div>
+      </section>
+    );
   }
 
   if (categories.length === 0) {
@@ -60,12 +72,17 @@ const FeaturedCategories = () => {
   }
 
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-2xl font-extrabold text-center text-gray-900 mb-12">
-          Shop by Category
-        </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8 justify-center">
+        <div className="text-center mb-12">
+          <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 tracking-tight">
+            Shop by Category
+          </h2>
+          <p className="text-sm text-gray-600 max-w-md mx-auto">
+            Explore our carefully curated categories of fresh, organic products
+          </p>
+        </div>
+        <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-6 justify-center">
           {categories.map((category) => (
             <CategoryCard key={category._id} category={category} />
           ))}

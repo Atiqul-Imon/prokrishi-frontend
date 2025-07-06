@@ -37,7 +37,9 @@ export default function ProductCard({ product }) {
 
   return (
     <div
-      className="group relative overflow-hidden bg-white hover:shadow-xl transition-all duration-300 product-card"
+      className="group relative bg-white hover:shadow-xl transition-all duration-300 product-card rounded-xl border border-gray-100 overflow-hidden"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       {/* Wishlist Button */}
       <button
@@ -46,76 +48,75 @@ export default function ProductCard({ product }) {
           e.stopPropagation();
           setIsWishlisted(!isWishlisted);
         }}
-        className={`absolute top-2 right-2 z-10 p-1.5 rounded-full transition-all duration-300 ${
+        className={`absolute top-3 right-3 z-10 p-2 rounded-full transition-all duration-300 backdrop-blur-sm ${
           isWishlisted
-            ? "bg-red-500 text-white shadow-md"
-            : "bg-white/90 text-gray-600 hover:bg-red-500 hover:text-white"
+            ? "bg-red-500 text-white shadow-lg scale-110"
+            : "bg-white/80 text-gray-600 hover:bg-red-500 hover:text-white hover:scale-110"
         }`}
       >
-        <Heart size={16} className={isWishlisted ? "fill-current" : ""} />
+        <Heart size={18} className={isWishlisted ? "fill-current" : ""} />
       </button>
 
       {/* Quick View Button */}
       <Link href={`/products/${_id}`}>
-        <button className="absolute top-2 left-2 z-10 p-1.5 bg-white/90 text-gray-600 rounded-full hover:bg-primary hover:text-white transition-all duration-300 opacity-0 group-hover:opacity-100">
-          <Eye size={16} />
+        <button className="absolute top-3 left-3 z-10 p-2 bg-white/80 text-gray-600 rounded-full hover:bg-green-600 hover:text-white transition-all duration-300 opacity-0 group-hover:opacity-100 backdrop-blur-sm hover:scale-110">
+          <Eye size={18} />
         </button>
       </Link>
 
       {/* Image Container */}
       <Link href={`/products/${_id}`} className="block">
-        <div className="relative overflow-hidden">
+        <div className="relative overflow-hidden bg-gray-50">
           <img
             src={image || "/img/placeholder.png"}
             alt={name}
-            className="w-full h-40 sm:h-48 md:h-56 lg:h-60 object-cover group-hover:scale-105 transition-transform duration-500"
+            className="w-full h-48 sm:h-56 md:h-64 object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
           />
 
           {/* Stock Status Overlay */}
           {!inStock && (
-            <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-              <span className="bg-red-500 text-white px-2 py-1 rounded text-xs font-semibold">
+            <div className="absolute inset-0 bg-black/60 flex items-center justify-center backdrop-blur-sm">
+              <span className="bg-red-500 text-white px-3 py-1.5 rounded-full text-sm font-semibold shadow-lg">
                 Out of Stock
               </span>
             </div>
           )}
 
           {isLowStock && inStock && (
-            <div className="absolute top-2 left-2 bg-orange-500 text-white text-xs font-semibold px-2 py-1 rounded">
+            <div className="absolute top-3 left-12 bg-orange-500 text-white text-xs font-semibold px-2.5 py-1 rounded-full shadow-lg">
               Only {stock} left
             </div>
           )}
-        </div>
 
-        {/* Category Badge */}
-        {category && (
-          <span className="absolute top-2 left-10 bg-primary text-white text-xs font-semibold px-2 py-1 rounded">
-            {category.name}
-          </span>
-        )}
+          {/* Category Badge */}
+          {category && (
+            <span className="absolute bottom-3 left-3 bg-green-600 text-white text-xs font-semibold px-2.5 py-1 rounded-full shadow-lg">
+              {category.name}
+            </span>
+          )}
+        </div>
       </Link>
 
       {/* Content */}
-      <div className="p-2 sm:p-3">
-        <h3 className="!text-2xl !font-bold text-gray-800 mb-1 line-clamp-2 hover:text-primary transition-colors">
+      <div className="p-4">
+        <h3 className="text-base font-semibold text-gray-900 mb-2 line-clamp-2 hover:text-green-600 transition-colors leading-tight">
           <Link href={`/products/${_id}`}>{name}</Link>
         </h3>
 
         {/* Price and Stock */}
-        <div className="flex justify-between items-center mb-2">
+        <div className="flex justify-between items-end mb-3">
           <div>
-            <p className="text-lg sm:text-xl font-bold text-primary">
+            <p className="text-xl font-bold text-green-600">
               ৳{price}
               {unit !== "pcs" && (
-                <span className="text-sm font-normal text-gray-600">
-                  {" "}
+                <span className="text-sm font-normal text-gray-500 ml-1">
                   / {measurement}
                   {unit === "l" ? "L" : unit}
                 </span>
               )}
             </p>
             {unit === "pcs" && (
-              <p className="text-sm text-gray-500 line-through">
+              <p className="text-sm text-gray-400 line-through">
                 ৳{Math.round(price * 1.2)}
               </p>
             )}
@@ -126,9 +127,9 @@ export default function ProductCard({ product }) {
         <button
           onClick={handleAddToCart}
           disabled={!inStock}
-          className="w-full bg-gray-800 text-white font-medium py-2 px-3 rounded text-sm flex items-center justify-center transition-all duration-300 ease-in-out transform hover:bg-gray-700 hover:scale-105 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:transform-none"
+          className="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-4 rounded-lg text-sm flex items-center justify-center transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg disabled:bg-gray-300 disabled:cursor-not-allowed disabled:transform-none disabled:hover:shadow-none"
         >
-          <ShoppingCart size={16} className="mr-1" />
+          <ShoppingCart size={18} className="mr-2" />
           <span>{inStock ? "Add to Cart" : "Out of Stock"}</span>
         </button>
       </div>
