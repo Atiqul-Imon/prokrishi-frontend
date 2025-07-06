@@ -4,7 +4,7 @@
 import axios from "axios";
 
 const BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3500/api";
+  process.env.NEXT_PUBLIC_API_BASE_URL || "https://prokrishi-backend1-1.onrender.com/api";
 
 // Create an axios instance
 const api = axios.create({
