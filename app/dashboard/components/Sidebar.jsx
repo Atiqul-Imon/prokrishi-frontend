@@ -39,14 +39,14 @@ export default function Sidebar({ current }) {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className={`flex items-center gap-3 px-3 py-2 rounded-md font-medium transition-colors ${
-                    isActive
-                      ? "bg-green-100 text-green-700"
-                      : "text-gray-700 hover:bg-gray-100"
-                  }`}
+                  className={`flex items-center gap-3 px-3 py-2 rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2
+                    ${isActive
+                      ? "bg-green-600 text-white shadow"
+                      : "text-gray-800 hover:bg-green-50 hover:text-green-700"}
+                  `}
                 >
-                  <item.icon size={20} />
-                  {item.label}
+                  <item.icon size={20} className={isActive ? "text-white" : "text-green-700 group-hover:text-green-700"} />
+                  <span className="whitespace-nowrap">{item.label}</span>
                 </Link>
               </li>
             );

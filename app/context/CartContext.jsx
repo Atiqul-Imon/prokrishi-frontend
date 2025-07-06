@@ -45,10 +45,16 @@ export function CartProvider({ children }) {
         if (idx > -1) {
           const updated = [...prev];
           updated[idx].quantity += qty;
-          toast.success(`Updated ${product.name} quantity`);
+          toast.success(`Updated ${product.name} quantity`, {
+            position: "top-center",
+            duration: 2000,
+          });
           return updated;
         }
-        toast.success(`${product.name} added to cart`);
+        toast.success(`${product.name} added to cart`, {
+          position: "top-center",
+          duration: 2000,
+        });
         return [...prev, { ...product, quantity: qty }];
       });
     } catch (error) {

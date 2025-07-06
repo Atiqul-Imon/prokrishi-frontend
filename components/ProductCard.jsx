@@ -10,7 +10,6 @@ import {
   AlertCircle,
 } from "lucide-react";
 import { useCart } from "@/app/context/CartContext";
-import { motion } from "framer-motion";
 
 export default function ProductCard({ product }) {
   const { addToCart } = useCart();
@@ -37,14 +36,8 @@ export default function ProductCard({ product }) {
   const isLowStock = stock > 0 && stock <= 5;
 
   return (
-    <motion.div
+    <div
       className="group relative overflow-hidden bg-white hover:shadow-xl transition-all duration-300 product-card"
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
-      whileHover={{ y: -2 }}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
     >
       {/* Wishlist Button */}
       <button
@@ -75,7 +68,7 @@ export default function ProductCard({ product }) {
           <img
             src={image || "/img/placeholder.png"}
             alt={name}
-            className="w-full h-32 sm:h-40 md:h-48 lg:h-52 object-cover group-hover:scale-105 transition-transform duration-500"
+            className="w-full h-40 sm:h-48 md:h-56 lg:h-60 object-cover group-hover:scale-105 transition-transform duration-500"
           />
 
           {/* Stock Status Overlay */}
@@ -130,17 +123,15 @@ export default function ProductCard({ product }) {
         </div>
 
         {/* Add to Cart Button */}
-        <motion.button
+        <button
           onClick={handleAddToCart}
           disabled={!inStock}
           className="w-full bg-gray-800 text-white font-medium py-2 px-3 rounded text-sm flex items-center justify-center transition-all duration-300 ease-in-out transform hover:bg-gray-700 hover:scale-105 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:transform-none"
-          whileHover={inStock ? { scale: 1.02 } : {}}
-          whileTap={inStock ? { scale: 0.98 } : {}}
         >
           <ShoppingCart size={16} className="mr-1" />
           <span>{inStock ? "Add to Cart" : "Out of Stock"}</span>
-        </motion.button>
+        </button>
       </div>
-    </motion.div>
+    </div>
   );
 }

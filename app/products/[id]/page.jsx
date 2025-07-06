@@ -145,7 +145,7 @@ export default function ProductDetailsPage() {
               <img
                 src={product.image || "/testp.webp"} // Use product.image directly
                 alt={product.name}
-                className="w-full h-auto max-h-[450px] object-contain rounded-lg"
+                className="w-full h-auto max-h-60 sm:max-h-[400px] lg:max-h-[600px] object-contain rounded-lg"
               />
             </motion.div>
           </div>
