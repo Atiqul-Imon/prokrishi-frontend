@@ -121,7 +121,7 @@ function CartPage() {
           <div className="lg:col-span-2">
             <div className="bg-white rounded-xl shadow-sm border">
               <div className="p-4 sm:p-6 border-b border-gray-200">
-                <h1 className="text-lg sm:text-xl font-bold text-gray-900">
+                <h1 className="!text-sm font-bold text-gray-900">
                   Shopping Cart
                 </h1>
                 <p className="text-gray-600 mt-1 text-sm sm:text-base">

@@ -1,12 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
-html,
+/* Add Chaldal font stack globally */
+@font-face {
+  font-family: 'SolaimanLipi';
+  src: url('/fonts/SolaimanLipi.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
+  font-family: 'SolaimanLipi', 'Noto Sans Bengali', 'Hind Siliguri', 'Siyam Rupali', 'Nikosh', 'Kalpurush', 'Chaldal', 'Helvetica Neue', Helvetica, Arial, 'Arial Unicode MS', sans-serif !important;
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: "Inter", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
