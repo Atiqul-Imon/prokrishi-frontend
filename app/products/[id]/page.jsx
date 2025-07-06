@@ -119,11 +119,7 @@ export default function ProductDetailsPage() {
   return (
     <div className="bg-gray-50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="mb-6"
-        >
+        <div className="mb-6">
           <button
             onClick={() => router.back()}
             className="flex items-center text-gray-600 hover:text-gray-900 font-medium"
@@ -131,32 +127,23 @@ export default function ProductDetailsPage() {
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Products
           </button>
-        </motion.div>
+        </div>
 
         <div className="grid md:grid-cols-2 gap-10 lg:gap-16">
           {/* Product Image Gallery */}
           <div className="space-y-4">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
-              className="bg-white rounded-xl shadow-lg p-4"
-            >
+            <div className="bg-white rounded-xl shadow-lg p-4">
               <img
                 src={product.image || "/testp.webp"} // Use product.image directly
                 alt={product.name}
-                className="w-full h-auto max-h-60 sm:max-h-[400px] lg:max-h-[600px] object-contain rounded-lg"
+                className="w-full h-auto max-h-96 sm:max-h-[500px] lg:max-h-[700px] object-contain rounded-lg"
               />
-            </motion.div>
+            </div>
           </div>
 
           {/* Product Info */}
           <div className="flex flex-col justify-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-            >
+            <div>
               <Link
                 href={`/products/category/${product.category.name.toLowerCase()}`}
                 className="text-primary-600 hover:text-primary-800 font-semibold text-sm uppercase tracking-wide"
@@ -167,14 +154,9 @@ export default function ProductDetailsPage() {
                 {product.name}
               </h1>
               <p className="text-sm text-gray-500 mt-1">SKU: {product.sku}</p>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="my-4"
-            >
+            <div className="my-4">
               <span className="text-4xl font-bold text-gray-900">
                 ৳{product.price}
                 {product.unit !== "pcs" && (
@@ -185,23 +167,13 @@ export default function ProductDetailsPage() {
                   </span>
                 )}
               </span>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="prose text-gray-600 mb-6"
-            >
+            <div className="prose text-gray-600 mb-6">
               <p>{product.description}</p>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="bg-white border border-gray-200 rounded-lg p-4 mb-6"
-            >
+            <div className="bg-white border border-gray-200 rounded-lg p-4 mb-6">
               <div className="flex items-center justify-between">
                 <div
                   className={`flex items-center font-semibold ${stockStatus.color}`}
@@ -210,15 +182,10 @@ export default function ProductDetailsPage() {
                   {stockStatus.text}
                 </div>
               </div>
-            </motion.div>
+            </div>
 
             {/* Actions */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-              className="flex items-center gap-4"
-            >
+            <div className="flex items-center gap-4">
               {/* Quantity Selector */}
               <div className="flex items-center border border-gray-300 rounded-lg">
                 <button
@@ -247,14 +214,9 @@ export default function ProductDetailsPage() {
                 <ShoppingCart size={20} className="mr-2" />
                 Add to Cart
               </button>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
-              className="mt-8 space-y-3 text-sm text-gray-600"
-            >
+            <div className="mt-8 space-y-3 text-sm text-gray-600">
               <div className="flex items-center">
                 <ShieldCheck className="w-5 h-5 mr-3 text-primary-600" />
                 <span>100% Secure Payments</span>
@@ -267,7 +229,7 @@ export default function ProductDetailsPage() {
                 <Package className="w-5 h-5 mr-3 text-primary-600" />
                 <span>Easy Returns & Exchanges</span>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>
