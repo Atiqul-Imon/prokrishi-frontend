@@ -97,7 +97,7 @@ export default function ProductCard({ product }) {
 
       {/* Content */}
       <div className="p-2 sm:p-3">
-        <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-800 mb-1 line-clamp-2 hover:text-primary transition-colors">
+        <h3 className="!text-2xl !font-bold text-gray-800 mb-1 line-clamp-2 hover:text-primary transition-colors">
           <Link href={`/products/${_id}`}>{name}</Link>
         </h3>
 
