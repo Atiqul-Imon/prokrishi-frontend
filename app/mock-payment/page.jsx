@@ -2,7 +2,7 @@
 
 export const dynamic = "force-dynamic";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import {
   CreditCard,
@@ -15,7 +15,7 @@ import {
 import { mockPaymentSuccess, mockPaymentFail } from "../utils/api";
 import toast from "react-hot-toast";
 
-export default function MockPaymentPage() {
+function MockPaymentContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -207,7 +207,8 @@ export default function MockPaymentPage() {
                     value={cardNumber}
                     onChange={(e) => setCardNumber(e.target.value)}
                     placeholder="1234 5678 9012 3456"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    maxLength="19"
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
@@ -220,7 +221,8 @@ export default function MockPaymentPage() {
                       value={expiryDate}
                       onChange={(e) => setExpiryDate(e.target.value)}
                       placeholder="MM/YY"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      maxLength="5"
                     />
                   </div>
                   <div>
@@ -232,7 +234,8 @@ export default function MockPaymentPage() {
                       value={cvv}
                       onChange={(e) => setCvv(e.target.value)}
                       placeholder="123"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      maxLength="4"
                     />
                   </div>
                 </div>
@@ -245,7 +248,7 @@ export default function MockPaymentPage() {
                     value={cardholderName}
                     onChange={(e) => setCardholderName(e.target.value)}
                     placeholder="John Doe"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               </div>
@@ -256,9 +259,9 @@ export default function MockPaymentPage() {
           <div className="bg-white rounded-lg shadow-lg p-6">
             <div className="flex flex-col sm:flex-row gap-4">
               <button
-                onClick={simulatePayment}
+                onClick={() => handlePayment(true)}
                 disabled={isProcessing}
-                className="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="flex-1 bg-green-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {isProcessing ? (
                   <>
@@ -268,50 +271,70 @@ export default function MockPaymentPage() {
                 ) : (
                   <>
                     <CheckCircle className="w-5 h-5" />
-                    Pay ৳{parseFloat(amount).toFixed(2)}
+                    Pay Successfully
                   </>
                 )}
               </button>
-
               <button
                 onClick={() => handlePayment(false)}
                 disabled={isProcessing}
-                className="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="flex-1 bg-red-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
-                <XCircle className="w-5 h-5" />
-                Simulate Failure
-              </button>
-
-              <button
-                onClick={() =>
-                  router.push(`/payment/cancel?tran_id=${tran_id}`)
-                }
-                disabled={isProcessing}
-                className="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-              >
-                <AlertCircle className="w-5 h-5" />
-                Cancel Payment
+                {isProcessing ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    Processing...
+                  </>
+                ) : (
+                  <>
+                    <XCircle className="w-5 h-5" />
+                    Simulate Failure
+                  </>
+                )}
               </button>
             </div>
-          </div>
-
-          {/* Security Notice */}
-          <div className="mt-6 text-center">
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-              <div className="flex items-center justify-center gap-2 mb-2">
-                <Lock className="w-5 h-5 text-blue-600" />
-                <span className="text-sm font-medium text-blue-800">
-                  Secure Payment
-                </span>
-              </div>
-              <p className="text-xs text-blue-700">
-                This is a mock payment system for testing. No real payments will
-                be processed. Your payment information is encrypted and secure.
+            <div className="mt-4">
+              <button
+                onClick={simulatePayment}
+                disabled={isProcessing}
+                className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              >
+                {isProcessing ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    Processing...
+                  </>
+                ) : (
+                  <>
+                    <AlertCircle className="w-5 h-5" />
+                    Simulate Random Result
+                  </>
+                )}
+              </button>
+            </div>
+            <div className="mt-4 text-center">
+              <p className="text-sm text-gray-600">
+                This is a mock payment system. No real transactions will be processed.
               </p>
             </div>
           </div>
         </div>
       </div>
     </div>
+  );
+}
+
+export default function MockPaymentPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading payment gateway...</p>
+        </div>
+      </div>
+    }>
+      <MockPaymentContent />
+    </Suspense>
   );
 }

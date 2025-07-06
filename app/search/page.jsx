@@ -2,7 +2,7 @@
 
 export const dynamic = "force-dynamic";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import {
   Search,
@@ -16,7 +16,7 @@ import ProductCard from "@/components/ProductCard";
 import { searchProducts } from "@/app/utils/api";
 import toast from "react-hot-toast";
 
-export default function SearchPage() {
+function SearchContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -213,15 +213,13 @@ export default function SearchPage() {
                   </label>
                   <select
                     value={filters.category}
-                    onChange={(e) =>
-                      updateFilters({ category: e.target.value })
-                    }
+                    onChange={(e) => updateFilters({ category: e.target.value })}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                   >
                     <option value="">All Categories</option>
                     {results.categories?.map((cat) => (
-                      <option key={cat._id} value={cat._id}>
-                        {cat.name}
+                      <option key={cat} value={cat}>
+                        {cat}
                       </option>
                     ))}
                   </select>
@@ -235,142 +233,150 @@ export default function SearchPage() {
                   <div className="space-y-2">
                     <input
                       type="number"
+                      placeholder="Min price"
                       value={filters.minPrice}
                       onChange={(e) =>
                         updateFilters({ minPrice: e.target.value })
                       }
-                      placeholder="Min price"
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                     />
                     <input
                       type="number"
+                      placeholder="Max price"
                       value={filters.maxPrice}
                       onChange={(e) =>
                         updateFilters({ maxPrice: e.target.value })
                       }
-                      placeholder="Max price"
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                     />
                   </div>
                 </div>
 
-                {/* Sort Options */}
+                {/* Sort */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Sort By
                   </label>
-                  <select
-                    value={filters.sortBy}
-                    onChange={(e) => updateFilters({ sortBy: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                  >
-                    <option value="name">Name</option>
-                    <option value="price">Price</option>
-                    <option value="createdAt">Newest</option>
-                  </select>
+                  <div className="space-y-2">
+                    <select
+                      value={filters.sortBy}
+                      onChange={(e) => updateFilters({ sortBy: e.target.value })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                    >
+                      <option value="name">Name</option>
+                      <option value="price">Price</option>
+                      <option value="createdAt">Date Added</option>
+                    </select>
+                    <select
+                      value={filters.sortOrder}
+                      onChange={(e) => updateFilters({ sortOrder: e.target.value })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                    >
+                      <option value="asc">Ascending</option>
+                      <option value="desc">Descending</option>
+                    </select>
+                  </div>
                 </div>
 
+                {/* Status Filter */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Sort Order
+                    Status
                   </label>
                   <select
-                    value={filters.sortOrder}
-                    onChange={(e) =>
-                      updateFilters({ sortOrder: e.target.value })
-                    }
+                    value={filters.status}
+                    onChange={(e) => updateFilters({ status: e.target.value })}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                   >
-                    <option value="asc">Ascending</option>
-                    <option value="desc">Descending</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                    <option value="all">All</option>
                   </select>
                 </div>
 
                 {/* Clear Filters */}
                 <button
                   onClick={clearFilters}
-                  className="w-full px-4 py-2 text-sm text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+                  className="w-full bg-gray-100 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-200 transition-colors"
                 >
-                  Clear All Filters
+                  Clear Filters
                 </button>
               </div>
             </div>
           </div>
 
-          {/* Results */}
+          {/* Search Results */}
           <div className="flex-1">
             {loading ? (
-              <div className="text-center py-16">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto"></div>
-                <p className="mt-4 text-gray-600">Searching products...</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[...Array(6)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="bg-white rounded-lg shadow-sm p-4 animate-pulse"
+                  >
+                    <div className="bg-gray-200 h-48 rounded-md mb-4"></div>
+                    <div className="bg-gray-200 h-4 rounded mb-2"></div>
+                    <div className="bg-gray-200 h-4 rounded w-2/3"></div>
+                  </div>
+                ))}
               </div>
             ) : error ? (
-              <div className="text-center py-16">
-                <p className="text-red-600">{error}</p>
+              <div className="text-center py-12">
+                <p className="text-red-600 mb-4">{error}</p>
+                <button
+                  onClick={performSearch}
+                  className="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition-colors"
+                >
+                  Try Again
+                </button>
               </div>
-            ) : results.products?.length === 0 ? (
-              <div className="text-center py-16">
-                <Search className="mx-auto h-12 w-12 text-gray-400" />
-                <h3 className="mt-4 text-lg font-medium text-gray-900">
-                  {query ? "No products found" : "Start your search"}
+            ) : results.products.length === 0 ? (
+              <div className="text-center py-12">
+                <Search className="mx-auto h-12 w-12 text-gray-400 mb-4" />
+                <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  No products found
                 </h3>
-                <p className="mt-2 text-gray-600">
-                  {query 
-                    ? "Try adjusting your search criteria or filters."
-                    : "Use the search box above to find products you're looking for."
-                  }
+                <p className="text-gray-600 mb-4">
+                  Try adjusting your search terms or filters.
                 </p>
+                <button
+                  onClick={clearFilters}
+                  className="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition-colors"
+                >
+                  Clear Filters
+                </button>
               </div>
             ) : (
               <>
-                {/* Products Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                  {results.products?.map((product) => (
+                {/* Results Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                  {results.products.map((product) => (
                     <ProductCard key={product._id} product={product} />
                   ))}
                 </div>
 
                 {/* Pagination */}
                 {results.pagination && results.pagination.totalPages > 1 && (
-                  <div className="mt-8 flex justify-center">
-                    <nav className="flex items-center space-x-2">
-                      <button
-                        onClick={() =>
-                          handlePageChange(results.pagination.currentPage - 1)
-                        }
-                        disabled={!results.pagination.hasPrevPage}
-                        className="px-3 py-2 text-sm border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                      >
-                        <ChevronLeft size={16} />
-                      </button>
-
-                      {Array.from(
-                        { length: results.pagination.totalPages },
-                        (_, i) => i + 1,
-                      ).map((pageNum) => (
-                        <button
-                          key={pageNum}
-                          onClick={() => handlePageChange(pageNum)}
-                          className={`px-3 py-2 text-sm border rounded-md ${
-                            pageNum === results.pagination.currentPage
-                              ? "bg-green-600 text-white border-green-600"
-                              : "border-gray-300 hover:bg-gray-50"
-                          }`}
-                        >
-                          {pageNum}
-                        </button>
-                      ))}
-
-                      <button
-                        onClick={() =>
-                          handlePageChange(results.pagination.currentPage + 1)
-                        }
-                        disabled={!results.pagination.hasNextPage}
-                        className="px-3 py-2 text-sm border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                      >
-                        <ChevronRight size={16} />
-                      </button>
-                    </nav>
+                  <div className="flex items-center justify-center gap-2">
+                    <button
+                      onClick={() => handlePageChange(parseInt(page) - 1)}
+                      disabled={parseInt(page) <= 1}
+                      className="p-2 border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      <ChevronLeft size={20} />
+                    </button>
+                    
+                    <span className="px-4 py-2 text-gray-700">
+                      Page {page} of {results.pagination.totalPages}
+                    </span>
+                    
+                    <button
+                      onClick={() => handlePageChange(parseInt(page) + 1)}
+                      disabled={parseInt(page) >= results.pagination.totalPages}
+                      className="p-2 border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      <ChevronRight size={20} />
+                    </button>
                   </div>
                 )}
               </>
@@ -379,5 +385,20 @@ export default function SearchPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading search...</p>
+        </div>
+      </div>
+    }>
+      <SearchContent />
+    </Suspense>
   );
 }
