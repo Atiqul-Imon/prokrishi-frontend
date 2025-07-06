@@ -141,7 +141,7 @@ function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-white shadow-md py-4 px-6 flex items-center justify-between">
+      <header className="sticky top-0 z-50 bg-white shadow-md py-4 px-6 flex items-center justify-between">
         {/* Left: Logo and Mobile Menu Icon */}
         <div className="flex items-center space-x-4 flex-1 basis-0 min-w-0">
           {/* Mobile Menu Icon */}
