@@ -121,7 +121,7 @@ function CartPage() {
           <div className="lg:col-span-2">
             <div className="bg-white rounded-xl shadow-sm border">
               <div className="p-4 sm:p-6 border-b border-gray-200">
-                <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
+                <h1 className="text-lg sm:text-xl font-bold text-gray-900">
                   Shopping Cart
                 </h1>
                 <p className="text-gray-600 mt-1 text-sm sm:text-base">
@@ -149,9 +149,6 @@ function CartPage() {
                             <h3 className="text-base sm:text-lg font-semibold text-gray-900 truncate">
                               {item.name}
                             </h3>
-                            <p className="text-gray-600 text-xs sm:text-sm mt-1">
-                              {item.category?.name}
-                            </p>
                           </div>
                           <button
                             onClick={() => removeFromCart(item.id)}
@@ -183,9 +180,6 @@ function CartPage() {
                                 <Plus className="w-4 h-4" />
                               </button>
                             </div>
-                            <span className="text-xs sm:text-sm text-gray-500">
-                              {item.stock} available
-                            </span>
                           </div>
                           <div className="text-right">
                             <p className="text-base sm:text-lg font-bold text-primary">
