@@ -20,6 +20,14 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <meta name="description" content="Prokrishi - Your Trusted Agricultural Marketplace. Buy and sell agricultural products, seeds, fertilizers, and farming equipment in Bangladesh." />
+        <meta property="og:title" content="Prokrishi - Your Trusted Agricultural Marketplace" />
+        <meta property="og:description" content="Buy and sell agricultural products, seeds, fertilizers, and farming equipment in Bangladesh." />
+        <meta property="og:image" content="/favicon.png" />
+        <meta name="theme-color" content="#22c55e" />
         {/* Facebook SDK for Messenger integration */}
         <script
           async
