@@ -473,6 +473,7 @@ export default function AdminProducts() {
               rowsPerPageOptions={[10, 25, 50]}
               disableSelectionOnClick
               autoHeight
+              getRowId={(row) => row._id}
               sx={{
                 border: 'none',
                 '& .MuiDataGrid-cell': {
