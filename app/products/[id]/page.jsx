@@ -73,27 +73,27 @@ export default function ProductDetailsPage() {
 
   if (loading)
     return (
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="animate-pulse bg-gray-200 rounded-lg w-full h-[400px]"></div>
-          <div className="space-y-4">
-            <div className="animate-pulse bg-gray-200 h-8 w-3/4 rounded"></div>
-            <div className="animate-pulse bg-gray-200 h-6 w-1/4 rounded"></div>
-            <div className="animate-pulse bg-gray-200 h-10 w-1/3 rounded"></div>
-            <div className="animate-pulse bg-gray-200 h-24 w-full rounded"></div>
-            <div className="flex items-center gap-4">
-              <div className="animate-pulse bg-gray-200 h-12 w-32 rounded-lg"></div>
-              <div className="animate-pulse bg-gray-200 h-12 w-48 rounded-lg"></div>
+      <div className="max-w-6xl mx-auto px-4 py-6">
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="animate-pulse bg-gray-200 rounded-lg w-full h-[350px]"></div>
+          <div className="space-y-3">
+            <div className="animate-pulse bg-gray-200 h-6 w-3/4 rounded"></div>
+            <div className="animate-pulse bg-gray-200 h-5 w-1/4 rounded"></div>
+            <div className="animate-pulse bg-gray-200 h-8 w-1/3 rounded"></div>
+            <div className="animate-pulse bg-gray-200 h-16 w-full rounded"></div>
+            <div className="flex items-center gap-3">
+              <div className="animate-pulse bg-gray-200 h-10 w-28 rounded-lg"></div>
+              <div className="animate-pulse bg-gray-200 h-10 w-40 rounded-lg"></div>
             </div>
           </div>
         </div>
       </div>
     );
   if (error)
-    return <div className="text-center text-red-600 py-16">{error}</div>;
+    return <div className="text-center text-red-600 py-12">{error}</div>;
   if (!product)
     return (
-      <div className="text-center text-gray-500 py-16">Product not found.</div>
+      <div className="text-center text-gray-500 py-12">Product not found.</div>
     );
 
   const isOutOfStock = product.stock === 0;
@@ -117,50 +117,50 @@ export default function ProductDetailsPage() {
         };
 
   return (
-    <div className="bg-gray-50">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mb-6">
+    <div className="bg-gray-50 min-h-screen">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="mb-4">
           <button
             onClick={() => router.back()}
-            className="flex items-center text-gray-600 hover:text-gray-900 font-medium"
+            className="flex items-center text-gray-600 hover:text-gray-900 font-medium text-sm transition-colors"
           >
-            <ArrowLeft className="w-4 h-4 mr-2" />
+            <ArrowLeft className="w-4 h-4 mr-1" />
             Back to Products
           </button>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-10 lg:gap-16">
+        <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
           {/* Product Image Gallery */}
-          <div className="space-y-4">
-            <div className="bg-white rounded-xl shadow-lg p-4">
+          <div className="space-y-3">
+            <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-3">
               <img
-                src={product.image || "/testp.webp"} // Use product.image directly
+                src={product.image || "/testp.webp"}
                 alt={product.name}
-                className="w-full h-auto max-h-96 sm:max-h-[500px] lg:max-h-[700px] object-contain rounded-lg"
+                className="w-full h-auto max-h-[400px] sm:max-h-[450px] lg:max-h-[500px] object-contain"
               />
             </div>
           </div>
 
           {/* Product Info */}
-          <div className="flex flex-col justify-center">
-            <div>
+          <div className="flex flex-col justify-start space-y-4">
+            <div className="space-y-2">
               <Link
                 href={`/products/category/${product.category.name.toLowerCase()}`}
-                className="text-primary-600 hover:text-primary-800 font-semibold text-sm uppercase tracking-wide"
+                className="text-primary-600 hover:text-primary-800 font-medium text-sm uppercase tracking-wide transition-colors"
               >
                 {product.category.name}
               </Link>
-              <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mt-2">
+              <h1 className="text-2xl md:text-3xl font-bold text-gray-900 leading-tight">
                 {product.name}
               </h1>
-              <p className="text-sm text-gray-500 mt-1">SKU: {product.sku}</p>
+              <p className="text-xs text-gray-500">SKU: {product.sku}</p>
             </div>
 
-            <div className="my-4">
-              <span className="text-4xl font-bold text-gray-900">
+            <div className="my-3">
+              <span className="text-3xl font-bold text-gray-900">
                 ৳{product.price}
                 {product.unit !== "pcs" && (
-                  <span className="text-xl font-medium text-gray-600">
+                  <span className="text-lg font-medium text-gray-600">
                     {" "}
                     / {product.measurement}
                     {product.unit === "l" ? "L" : product.unit}
@@ -169,14 +169,14 @@ export default function ProductDetailsPage() {
               </span>
             </div>
 
-            <div className="prose text-gray-600 mb-6">
+            <div className="text-gray-600 text-sm leading-relaxed">
               <p>{product.description}</p>
             </div>
 
-            <div className="bg-white border border-gray-200 rounded-lg p-4 mb-6">
+            <div className="bg-white border border-gray-200 rounded-lg p-3">
               <div className="flex items-center justify-between">
                 <div
-                  className={`flex items-center font-semibold ${stockStatus.color}`}
+                  className={`flex items-center font-medium text-sm ${stockStatus.color}`}
                 >
                   {stockStatus.icon}
                   {stockStatus.text}
@@ -185,21 +185,21 @@ export default function ProductDetailsPage() {
             </div>
 
             {/* Actions */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               {/* Quantity Selector */}
               <div className="flex items-center border border-gray-300 rounded-lg">
                 <button
                   onClick={decrementQuantity}
                   disabled={isOutOfStock || quantity <= 1}
-                  className="p-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="p-2.5 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
                 >
                   <Minus className="w-4 h-4" />
                 </button>
-                <span className="px-5 font-semibold text-lg">{quantity}</span>
+                <span className="px-4 font-semibold text-base">{quantity}</span>
                 <button
                   onClick={incrementQuantity}
                   disabled={isOutOfStock || quantity >= product.stock}
-                  className="p-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="p-2.5 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
                 >
                   <Plus className="w-4 h-4" />
                 </button>
@@ -209,24 +209,24 @@ export default function ProductDetailsPage() {
               <button
                 onClick={handleAddToCart}
                 disabled={isOutOfStock}
-                className="w-full bg-green-600 hover:bg-green-700 text-white py-3.5 px-6 rounded-lg font-bold text-lg transition-all duration-300 ease-in-out disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center shadow-lg hover:shadow-green-500/50 transform hover:scale-105"
+                className="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-lg font-semibold text-base transition-all duration-200 ease-in-out disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center shadow-sm hover:shadow-md transform hover:scale-[1.02]"
               >
-                <ShoppingCart size={20} className="mr-2" />
+                <ShoppingCart size={18} className="mr-2" />
                 Add to Cart
               </button>
             </div>
 
-            <div className="mt-8 space-y-3 text-sm text-gray-600">
+            <div className="space-y-2 text-xs text-gray-600">
               <div className="flex items-center">
-                <ShieldCheck className="w-5 h-5 mr-3 text-primary-600" />
+                <ShieldCheck className="w-4 h-4 mr-2 text-primary-600 flex-shrink-0" />
                 <span>100% Secure Payments</span>
               </div>
               <div className="flex items-center">
-                <Truck className="w-5 h-5 mr-3 text-primary-600" />
+                <Truck className="w-4 h-4 mr-2 text-primary-600 flex-shrink-0" />
                 <span>Fast Delivery Across the Country</span>
               </div>
               <div className="flex items-center">
-                <Package className="w-5 h-5 mr-3 text-primary-600" />
+                <Package className="w-4 h-4 mr-2 text-primary-600 flex-shrink-0" />
                 <span>Easy Returns & Exchanges</span>
               </div>
             </div>
