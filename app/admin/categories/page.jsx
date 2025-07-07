@@ -107,10 +107,10 @@ export default function AdminCategories() {
         <Box display="flex" alignItems="center" gap={1}>
           <CategoryAvatar name={params.row.name} icon={params.row.icon} />
           <Box>
-            <Typography variant="subtitle2" fontWeight={600} noWrap>
+            <Typography variant="subtitle2" fontWeight={600} noWrap component="div">
               {params.row.name}
             </Typography>
-            <Typography variant="caption" color="text.secondary" noWrap>
+            <Typography variant="caption" color="text.secondary" noWrap component="div">
               {params.row.slug}
             </Typography>
           </Box>
@@ -123,7 +123,7 @@ export default function AdminCategories() {
       flex: 1,
       minWidth: 200,
       renderCell: (params) => (
-        <Typography variant="body2" color="text.secondary" noWrap>
+        <Typography variant="body2" color="text.secondary" noWrap component="div">
           {params.row.description || 'No description'}
         </Typography>
       ),
@@ -134,10 +134,10 @@ export default function AdminCategories() {
       width: 100,
       renderCell: (params) => (
         <Box textAlign="center">
-          <Typography variant="subtitle2" fontWeight={600} color="primary.main">
+          <Typography variant="subtitle2" fontWeight={600} color="primary.main" component="div">
             {params.row.productCount || 0}
           </Typography>
-          <Typography variant="caption" color="text.secondary">
+          <Typography variant="caption" color="text.secondary" component="div">
             products
           </Typography>
         </Box>
@@ -168,7 +168,7 @@ export default function AdminCategories() {
       headerName: 'Created',
       width: 140,
       renderCell: (params) => (
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color="text.secondary" component="div">
           {new Date(params.row.createdAt).toLocaleDateString()}
         </Typography>
       ),

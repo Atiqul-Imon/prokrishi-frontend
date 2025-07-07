@@ -130,7 +130,7 @@ export default function AdminOrders() {
       headerName: 'Order ID',
       width: 120,
       renderCell: (params) => (
-        <Typography variant="subtitle2" fontWeight={600} color="primary.main">
+        <Typography variant="subtitle2" fontWeight={600} color="primary.main" component="div">
           #{params.row._id?.substring(0, 8)}
         </Typography>
       ),
@@ -143,10 +143,10 @@ export default function AdminOrders() {
         <Box display="flex" alignItems="center" gap={1}>
           <CustomerAvatar name={params.row.user?.name} email={params.row.user?.email} />
           <Box>
-            <Typography variant="subtitle2" fontWeight={600} noWrap>
+            <Typography variant="subtitle2" fontWeight={600} noWrap component="div">
               {params.row.user?.name || 'Guest'}
             </Typography>
-            <Typography variant="caption" color="text.secondary" noWrap>
+            <Typography variant="caption" color="text.secondary" noWrap component="div">
               {params.row.user?.email || 'No email'}
             </Typography>
           </Box>
@@ -159,10 +159,10 @@ export default function AdminOrders() {
       width: 100,
       renderCell: (params) => (
         <Box textAlign="center">
-          <Typography variant="subtitle2" fontWeight={600}>
+          <Typography variant="subtitle2" fontWeight={600} component="div">
             {params.row.items?.length || 0}
           </Typography>
-          <Typography variant="caption" color="text.secondary">
+          <Typography variant="caption" color="text.secondary" component="div">
             items
           </Typography>
         </Box>
@@ -173,7 +173,7 @@ export default function AdminOrders() {
       headerName: 'Total',
       width: 120,
       renderCell: (params) => (
-        <Typography variant="subtitle2" fontWeight={600} color="success.main">
+        <Typography variant="subtitle2" fontWeight={600} color="success.main" component="div">
           ৳{params.row.totalPrice?.toFixed(2)}
         </Typography>
       ),
@@ -203,10 +203,10 @@ export default function AdminOrders() {
       width: 140,
       renderCell: (params) => (
         <Box>
-          <Typography variant="body2" fontWeight={500}>
+          <Typography variant="body2" fontWeight={500} component="div">
             {new Date(params.row.createdAt).toLocaleDateString()}
           </Typography>
-          <Typography variant="caption" color="text.secondary">
+          <Typography variant="caption" color="text.secondary" component="div">
             {new Date(params.row.createdAt).toLocaleTimeString()}
           </Typography>
         </Box>

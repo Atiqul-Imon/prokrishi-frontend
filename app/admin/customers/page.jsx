@@ -111,10 +111,10 @@ export default function AdminCustomers() {
         <Box display="flex" alignItems="center" gap={1}>
           <CustomerAvatar name={params.row.name} email={params.row.email} />
           <Box>
-            <Typography variant="subtitle2" fontWeight={600} noWrap>
+            <Typography variant="subtitle2" fontWeight={600} noWrap component="div">
               {params.row.name}
             </Typography>
-            <Typography variant="caption" color="text.secondary" noWrap>
+            <Typography variant="caption" color="text.secondary" noWrap component="div">
               {params.row.email}
             </Typography>
           </Box>
@@ -128,7 +128,7 @@ export default function AdminCustomers() {
       renderCell: (params) => (
         <Box display="flex" alignItems="center" gap={1}>
           <PhoneIcon fontSize="small" color="action" />
-          <Typography variant="body2">
+          <Typography variant="body2" component="div">
             {params.row.phone || 'N/A'}
           </Typography>
         </Box>
@@ -141,7 +141,7 @@ export default function AdminCustomers() {
       renderCell: (params) => (
         <Box display="flex" alignItems="center" gap={1}>
           <LocationIcon fontSize="small" color="action" />
-          <Typography variant="body2" noWrap>
+          <Typography variant="body2" noWrap component="div">
             {params.row.addresses?.[0]?.city || 'N/A'}
           </Typography>
         </Box>
@@ -153,10 +153,10 @@ export default function AdminCustomers() {
       width: 100,
       renderCell: (params) => (
         <Box textAlign="center">
-          <Typography variant="subtitle2" fontWeight={600} color="primary.main">
+          <Typography variant="subtitle2" fontWeight={600} color="primary.main" component="div">
             {params.row.orderCount || 0}
           </Typography>
-          <Typography variant="caption" color="text.secondary">
+          <Typography variant="caption" color="text.secondary" component="div">
             orders
           </Typography>
         </Box>
@@ -168,7 +168,7 @@ export default function AdminCustomers() {
       width: 120,
       renderCell: (params) => (
         <Box textAlign="center">
-          <Typography variant="subtitle2" fontWeight={600} color="success.main">
+          <Typography variant="subtitle2" fontWeight={600} color="success.main" component="div">
             ৳{params.row.totalSpent?.toFixed(2) || '0.00'}
           </Typography>
         </Box>
@@ -185,7 +185,7 @@ export default function AdminCustomers() {
       headerName: 'Last Order',
       width: 140,
       renderCell: (params) => (
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color="text.secondary" component="div">
           {params.row.lastOrderDate ? 
             new Date(params.row.lastOrderDate).toLocaleDateString() : 
             'Never'

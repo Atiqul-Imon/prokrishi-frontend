@@ -116,10 +116,10 @@ export default function AdminProducts() {
       minWidth: 200,
       renderCell: (params) => (
         <Box>
-          <Typography variant="subtitle2" fontWeight={600} noWrap>
+          <Typography variant="subtitle2" fontWeight={600} noWrap component="div">
             {params.row.name}
           </Typography>
-          <Typography variant="caption" color="text.secondary" noWrap>
+          <Typography variant="caption" color="text.secondary" noWrap component="div">
             SKU: {params.row.sku}
           </Typography>
         </Box>
@@ -142,7 +142,7 @@ export default function AdminProducts() {
       headerName: 'Price',
       width: 120,
       renderCell: (params) => (
-        <Typography variant="subtitle2" fontWeight={600} color="primary.main">
+        <Typography variant="subtitle2" fontWeight={600} color="primary.main" component="div">
           ৳{params.row.price?.toFixed(2)}
         </Typography>
       ),
@@ -162,11 +162,12 @@ export default function AdminProducts() {
               variant="subtitle2" 
               fontWeight={600}
               color={isOutOfStock ? 'error.main' : isLowStock ? 'warning.main' : 'success.main'}
+              component="div"
             >
               {stock}
             </Typography>
             {isLowStock && (
-              <Typography variant="caption" color="warning.main">
+              <Typography variant="caption" color="warning.main" component="div">
                 Low Stock
               </Typography>
             )}

@@ -179,7 +179,7 @@ const RecentOrderItem = ({ order }) => {
       <ListItemText
         primary={
           <Box display="flex" alignItems="center" justifyContent="space-between">
-            <Typography variant="subtitle2" fontWeight={600}>
+            <Typography variant="subtitle2" fontWeight={600} component="div">
               {order.user?.name || "Guest"}
             </Typography>
             <Chip
@@ -193,10 +193,10 @@ const RecentOrderItem = ({ order }) => {
         }
         secondary={
           <Box display="flex" alignItems="center" justifyContent="space-between" mt={0.5}>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" color="text.secondary" component="div">
               #{order._id?.substring(0, 8)} • {new Date(order.createdAt).toLocaleDateString()}
             </Typography>
-            <Typography variant="subtitle2" fontWeight={600} color="primary.main">
+            <Typography variant="subtitle2" fontWeight={600} color="primary.main" component="div">
               ৳{order.totalPrice?.toFixed(2)}
             </Typography>
           </Box>
@@ -227,12 +227,12 @@ const LowStockItem = ({ product }) => {
       </ListItemAvatar>
       <ListItemText
         primary={
-          <Typography variant="subtitle2" fontWeight={600} noWrap>
+          <Typography variant="subtitle2" fontWeight={600} noWrap component="div">
             {product.name}
           </Typography>
         }
         secondary={
-          <Typography variant="body2" color="text.secondary" noWrap>
+          <Typography variant="body2" color="text.secondary" noWrap component="div">
             {product.category?.name || 'Uncategorized'}
           </Typography>
         }
@@ -245,7 +245,7 @@ const LowStockItem = ({ product }) => {
           variant="filled"
           sx={{ fontWeight: 600 }}
         />
-        <Typography variant="caption" color="text.secondary" display="block" mt={0.5}>
+        <Typography variant="caption" color="text.secondary" display="block" mt={0.5} component="div">
           {stockInfo.level}
         </Typography>
       </Box>
