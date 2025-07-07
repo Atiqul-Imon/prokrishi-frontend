@@ -133,12 +133,12 @@ function CartPage() {
                 {cart.map((item) => (
                   <div key={item.id} className="p-4 sm:p-6">
                     <div className="flex flex-col xs:flex-row items-center xs:items-start gap-4">
-                      {/* Product Image */}
-                      <div className="flex-shrink-0">
+                      {/* Product Image - Hidden on mobile, visible on md+ screens */}
+                      <div className="hidden md:block flex-shrink-0">
                         <img
                           src={item.image || "/img/placeholder.png"}
                           alt={item.name}
-                          className="w-16 h-16 sm:w-20 sm:h-20 object-cover rounded-lg"
+                          className="w-20 h-20 object-cover rounded-lg"
                         />
                       </div>
 
