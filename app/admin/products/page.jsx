@@ -218,8 +218,8 @@ export default function AdminProducts() {
       setLoading(true);
       setError(null);
       const data = await getAllProducts();
-      setProducts(data.products || []);
-      setFilteredProducts(data.products || []);
+      setProducts(data || []);
+      setFilteredProducts(data || []);
     } catch (err) {
       setError(err.message);
       console.error('Products fetch error:', err);

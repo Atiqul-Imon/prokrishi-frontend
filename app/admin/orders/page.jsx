@@ -235,8 +235,8 @@ export default function AdminOrders() {
       setLoading(true);
       setError(null);
       const data = await getResourceList('order');
-      setOrders(data.orders || []);
-      setFilteredOrders(data.orders || []);
+      setOrders(data || []);
+      setFilteredOrders(data || []);
     } catch (err) {
       setError(err.message);
       console.error('Orders fetch error:', err);

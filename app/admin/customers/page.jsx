@@ -216,8 +216,8 @@ export default function AdminCustomers() {
       setLoading(true);
       setError(null);
       const data = await getResourceList('user');
-      setCustomers(data.users || []);
-      setFilteredCustomers(data.users || []);
+      setCustomers(data.data || []);
+      setFilteredCustomers(data.data || []);
     } catch (err) {
       setError(err.message);
       console.error('Customers fetch error:', err);

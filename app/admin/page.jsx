@@ -589,12 +589,12 @@ export default function AdminDashboard() {
         <Grid item xs={12} lg={6}>
           <Card>
             <CardContent>
-              <Box display="flex" alignItems="center" justifyContent="space-between" mb={3}>
-                <Box display="flex" alignItems="center" gap={1}>
-                  <Typography variant="h6" fontWeight={600}>
+              <Box display="flex" alignItems="center" justifyContent="space-between" mb={3} minHeight={40}>
+                <Box display="flex" alignItems="center" gap={1} minWidth={0}>
+                  <Typography variant="h6" fontWeight={600} noWrap>
                     Recent Orders
                   </Typography>
-                  <Badge badgeContent={stats.recentOrders?.length || 0} color="primary" />
+                  <Badge badgeContent={stats.recentOrders?.length || 0} color="primary" size="small" sx={{ ml: 1, verticalAlign: 'middle' }} />
                 </Box>
                 <Button
                   component={Link}
@@ -602,6 +602,7 @@ export default function AdminDashboard() {
                   size="small"
                   color="primary"
                   endIcon={<VisibilityIcon />}
+                  sx={{ whiteSpace: 'nowrap', minWidth: 0, alignSelf: 'center', display: 'flex', alignItems: 'center' }}
                 >
                   View all
                 </Button>
@@ -627,12 +628,12 @@ export default function AdminDashboard() {
         <Grid item xs={12} lg={6}>
           <Card>
             <CardContent>
-              <Box display="flex" alignItems="center" justifyContent="space-between" mb={3}>
-                <Box display="flex" alignItems="center" gap={1}>
-                  <Typography variant="h6" fontWeight={600}>
+              <Box display="flex" alignItems="center" justifyContent="space-between" mb={3} minHeight={40}>
+                <Box display="flex" alignItems="center" gap={1} minWidth={0}>
+                  <Typography variant="h6" fontWeight={600} noWrap>
                     Low Stock Alerts
                   </Typography>
-                  <Badge badgeContent={stats.lowStockProducts?.length || 0} color="error" />
+                  <Badge badgeContent={stats.lowStockProducts?.length || 0} color="error" size="small" sx={{ ml: 1, verticalAlign: 'middle' }} />
                 </Box>
                 <Button
                   component={Link}
@@ -640,6 +641,7 @@ export default function AdminDashboard() {
                   size="small"
                   color="primary"
                   endIcon={<VisibilityIcon />}
+                  sx={{ whiteSpace: 'nowrap', minWidth: 0, alignSelf: 'center', display: 'flex', alignItems: 'center' }}
                 >
                   View all
                 </Button>

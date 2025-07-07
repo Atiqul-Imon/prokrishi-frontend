@@ -95,23 +95,30 @@ export default function AdminLayout({ children }) {
   return (
     <ThemeProvider theme={adminTheme}>
       <CssBaseline />
-      <Box display="flex" minHeight="100vh" bgcolor="background.default">
-        <AdminSidebar />
-        <Box flex={1} display="flex" flexDirection="column" overflow="hidden">
-          <AdminTopbar />
-          <Box
-            component="main"
-            flex={1}
-            overflow="auto"
-            p={3}
-            sx={{
-              '@media (min-width: 600px)': {
-                p: 4,
-              },
-            }}
-          >
-            {children}
-          </Box>
+      {/* Sidebar is handled by AdminSidebar (permanent on desktop, overlay on mobile) */}
+      <AdminSidebar />
+      <Box
+        sx={{
+          ml: { xs: 0, md: '280px' },
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          bgcolor: 'background.default',
+        }}
+      >
+        <AdminTopbar />
+        <Box
+          component="main"
+          flex={1}
+          overflow="auto"
+          p={3}
+          sx={{
+            '@media (min-width: 600px)': {
+              p: 4,
+            },
+          }}
+        >
+          {children}
         </Box>
       </Box>
     </ThemeProvider>
